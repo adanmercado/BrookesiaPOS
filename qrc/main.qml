@@ -16,6 +16,9 @@ ApplicationWindow {
             id: menuButton
             text: "\u2630"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
+            onClicked: {
+                menuDrawer.open();
+            }
         }
 
         Label {
@@ -26,11 +29,32 @@ ApplicationWindow {
 
     Drawer {
         id: menuDrawer
-        width: brookesiaPOS.width * 0.66
+        width: brookesiaPOS.width * 0.24
         height: brookesiaPOS.height
 
         Column {
             anchors.fill: parent
+
+            Repeater {
+                model: ListModel {
+                    ListElement {text: qsTr("Sales")}
+                    ListElement {text: qsTr("Products")}
+                    ListElement {text: qsTr("Clients")}
+                    ListElement {text: qsTr("Providers")}
+                    ListElement {text: qsTr("Drawer")}
+                    ListElement {text: qsTr("Settings")}
+                }
+
+                delegate: ItemDelegate {
+                    width: parent.width
+                    height: 60
+                    text: model.text
+                    onClicked: {
+                        console.log("Menu buton clicked:", text);
+                        menuDrawer.close();
+                    }
+                }
+            }
         }
     }
 
