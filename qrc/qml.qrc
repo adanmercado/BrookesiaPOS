@@ -2,5 +2,31 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>icons/add.svg</file>
+        <file>icons/barcode.svg</file>
+        <file>icons/bars.svg</file>
+        <file>icons/cash-register.svg</file>
+        <file>icons/chart.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/coins.svg</file>
+        <file>icons/credit-card.svg</file>
+        <file>icons/edit.svg</file>
+        <file>icons/info-circle.svg</file>
+        <file>icons/minus.svg</file>
+        <file>icons/money-bill.svg</file>
+        <file>icons/print.svg</file>
+        <file>icons/products.svg</file>
+        <file>icons/providers.svg</file>
+        <file>icons/receipt.svg</file>
+        <file>icons/remove.svg</file>
+        <file>icons/search.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/shopping-cart.svg</file>
+        <file>icons/sign-in.svg</file>
+        <file>icons/sign-out.svg</file>
+        <file>icons/store.svg</file>
+        <file>icons/user.svg</file>
+        <file>icons/users.svg</file>
+        <file>icons/window-minimize.svg</file>
     </qresource>
 </RCC>
