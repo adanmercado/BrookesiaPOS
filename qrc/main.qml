@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import QtQuick.Controls.Material 2.14
 
 ApplicationWindow {
     id: brookesiaPOS
@@ -65,6 +66,7 @@ ApplicationWindow {
                     width: parent.width
                     height: 100
                     text: model.text
+                    Material.foreground: "#212121"
                     font.pixelSize: 16
                     icon.source: model.icon
                     icon.width: 32
@@ -81,6 +83,7 @@ ApplicationWindow {
 
     Loader {
         id: appLoader
+        source: "qrc:/views/sales.qml"
         anchors.fill: parent
     }
 }

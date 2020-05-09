@@ -28,5 +28,8 @@
         <file>icons/user.svg</file>
         <file>icons/users.svg</file>
         <file>icons/window-minimize.svg</file>
+        <file>views/sales.qml</file>
+        <file>components/TicketLabel.qml</file>
+        <file>components/TicketItemDelegate.qml</file>
     </qresource>
 </RCC>
