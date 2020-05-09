@@ -7,7 +7,7 @@ ApplicationWindow {
     width: 640
     height: 480
     visibility: "Maximized"
-    title: qsTr("Brookesia POS")
+    title: Qt.application.name
 
     header: ToolBar {
         contentHeight: menuButton.implicitHeight
@@ -23,7 +23,7 @@ ApplicationWindow {
         Label {
             text: brookesiaPOS.title
             anchors.centerIn: parent
-            font.pixelSize: 22
+            font.pixelSize: 20
         }
 
         ToolButton {
