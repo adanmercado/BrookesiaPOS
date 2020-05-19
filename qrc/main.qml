@@ -8,7 +8,7 @@ ApplicationWindow {
     id: brookesiaPOS
     visible: true
     minimumWidth: 1000
-    minimumHeight: 600
+    minimumHeight: 650
     visibility: "Maximized"
     title: Qt.application.name
 
@@ -102,5 +102,6 @@ ApplicationWindow {
         id: appLoader
         source: "qrc:/pages/SalesPage.qml"
         anchors.fill: parent
+        anchors.margins: 4
     }
 }

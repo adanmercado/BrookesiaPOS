@@ -21,7 +21,6 @@ Item {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 4
         spacing: 6
 
         Rectangle {

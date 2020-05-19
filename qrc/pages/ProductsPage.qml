@@ -6,8 +6,10 @@ import QtQuick.Layouts 1.14
 import "../components"
 
 Item {
+    id: productsPage
     ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
         Rectangle {
             border.width: 1
@@ -19,6 +21,7 @@ Item {
 
             ProductsView {
                 anchors.fill: parent
+                editable: true
             }
         }
 
@@ -32,9 +35,13 @@ Item {
                 highlighted: true
                 Material.elevation: 6
                 onClicked: {
-                    console.log("Add product button");
+                    productDialog.open();
                 }
             }
         }
+    }
+
+    ProductItemDialog {
+        id: productDialog
     }
 }

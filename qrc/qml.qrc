@@ -39,5 +39,11 @@
         <file>pages/DrawerPage.qml</file>
         <file>pages/SettingsPage.qml</file>
         <file>components/LoginDialog.qml</file>
+        <file>components/ImageDelegate.qml</file>
+        <file>components/ProductItemDialog.qml</file>
+        <file>components/ImagePicker.qml</file>
+        <file>icons/cancel.svg</file>
+        <file>icons/image.svg</file>
+        <file>components/DecimalSpinBox.qml</file>
     </qresource>
 </RCC>

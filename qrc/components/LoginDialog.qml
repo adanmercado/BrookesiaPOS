@@ -9,6 +9,9 @@ Dialog {
     x: Math.round((brookesiaPOS.width - width) / 2)
     y: Math.round((brookesiaPOS.height - height) / 2)
     modal: true
+    focus: true
+    padding: 6
+    topPadding: 6
     title: qsTr("Login")
 
     contentItem: ColumnLayout {
@@ -51,7 +54,7 @@ Dialog {
 
             Button {
                 id: cancelButton
-                icon.source: "qrc:/icons/remove.svg"
+                icon.source: "qrc:/icons/cancel.svg"
                 text: qsTr("Cancel")
                 highlighted: true
                 Material.elevation: 6

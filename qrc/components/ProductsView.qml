@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.14
 
 Item {
     id: productsRect
+    property bool editable: false
 
     ColumnLayout {
         anchors.fill: parent
@@ -62,38 +63,12 @@ Item {
 
             //Set model
             //model:
-            delegate: ItemDelegate {
+            delegate: ImageDelegate {
                 width: productsGridView.cellSize + productsGridView.cellSpacing
                 height: productsGridView.cellSize + productsGridView.cellSpacing
-
-                Item {
-                    width: productsGridView.cellSize
-                    height: productsGridView.cellSize
-                    anchors.centerIn: parent
-
-                    Image {
-                        //TODO
-                        anchors.fill: parent
-                    }
-
-                    Rectangle {
-                        width: parent.width
-                        height: productLabel.contentHeight
-                        anchors.bottom: parent.bottom
-                        opacity: 0.6
-                    }
-
-                    Label {
-                        id: productLabel
-                        width: parent.width
-                        anchors.bottom: parent.bottom
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        text: qsTr("Test product delegate %1").arg(model.index)
-                        color: "#212121"
-                    }
-                }
+                contentSize: productsGridView.cellSize
+                //itemText:
+                //itemImage:
             }
         }
     }
