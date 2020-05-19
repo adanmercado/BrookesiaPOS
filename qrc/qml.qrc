@@ -28,9 +28,16 @@
         <file>icons/user.svg</file>
         <file>icons/users.svg</file>
         <file>icons/window-minimize.svg</file>
-        <file>views/sales.qml</file>
+        <file>pages/SalesPage.qml</file>
         <file>components/TicketLabel.qml</file>
         <file>components/TicketItemDelegate.qml</file>
         <file>img/picture.jpg</file>
+        <file>pages/ProductsPage.qml</file>
+        <file>components/ProductsView.qml</file>
+        <file>pages/ClientsPage.qml</file>
+        <file>pages/ProvidersPage.qml</file>
+        <file>pages/DrawerPage.qml</file>
+        <file>pages/SettingsPage.qml</file>
+        <file>components/LoginDialog.qml</file>
     </qresource>
 </RCC>
