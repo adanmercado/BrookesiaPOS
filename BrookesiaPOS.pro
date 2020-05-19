@@ -1,12 +1,18 @@
-QT += quick
+QT += quick gui
 
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+HEADERS += \
+    src/ticket/ticketitemlist.h \
+    src/ticket/ticketmodel.h
+
 SOURCES += \
-        src/main.cpp
+        src/main.cpp \
+        src/ticket/ticketitemlist.cpp \
+        src/ticket/ticketmodel.cpp
 
 RESOURCES += qrc/qml.qrc
 

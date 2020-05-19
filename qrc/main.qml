@@ -5,8 +5,8 @@ import QtQuick.Controls.Material 2.14
 ApplicationWindow {
     id: brookesiaPOS
     visible: true
-    width: 640
-    height: 480
+    minimumWidth: 1000
+    minimumHeight: 600
     visibility: "Maximized"
     title: Qt.application.name
 

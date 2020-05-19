@@ -1,5 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+#include "ticket/ticketmodel.h"
+#include "ticket/ticketitemlist.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +18,12 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Mercader Software");
     app.setOrganizationDomain("mercadersoftware.com.mx");
 
+    qmlRegisterType<TicketModel>("brookesiapos.models", 1, 0, "TicketModel");
+    qmlRegisterUncreatableType<TicketItemList>("brookesiapos.models", 1, 0, "TicketItemList", QStringLiteral("TicketItemList should not be created in QML"));
+    TicketItemList ticketItemList;
+
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("ticketItemList", &ticketItemList);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

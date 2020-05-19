@@ -31,5 +31,6 @@
         <file>views/sales.qml</file>
         <file>components/TicketLabel.qml</file>
         <file>components/TicketItemDelegate.qml</file>
+        <file>img/picture.jpg</file>
     </qresource>
 </RCC>

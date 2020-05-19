@@ -15,7 +15,6 @@ RowLayout {
         Layout.fillWidth: true
         Layout.leftMargin: 12
         color: textColor
-        font.pixelSize: 16
     }
 
     Label {
@@ -23,7 +22,6 @@ RowLayout {
         Layout.maximumWidth: parent.width / 2
         Layout.rightMargin: 12
         color: textColor
-        font.pixelSize: 16
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }
 }
