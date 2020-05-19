@@ -124,6 +124,7 @@ Item {
                                 horizontalAlignment: Text.AlignHCenter
                                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                 text: qsTr("Test product delegate %1").arg(model.index)
+                                color: "#212121"
                             }
                         }
                     }

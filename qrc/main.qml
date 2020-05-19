@@ -53,6 +53,7 @@ ApplicationWindow {
             anchors.fill: parent
 
             Repeater {
+                id: menuRepeater
                 model: ListModel {
                     ListElement {text: qsTr("Sales"); icon: "qrc:/icons/shopping-cart.svg"}
                     ListElement {text: qsTr("Products"); icon: "qrc:/icons/products.svg"}
@@ -66,14 +67,16 @@ ApplicationWindow {
                     width: parent.width
                     height: 100
                     text: model.text
-                    Material.foreground: "#212121"
-                    font.pixelSize: 16
+                    font.pixelSize: 18
+                    font.bold: true
                     icon.source: model.icon
-                    icon.width: 32
-                    icon.height: 32
+                    icon.width: 42
+                    icon.height: 42
+                    Material.foreground: Material.accentColor
                     display: AbstractButton.TextUnderIcon
+                    ButtonGroup.group: menuButtonGroup
+
                     onClicked: {
-                        console.log("Menu buton clicked:", text);
                         menuDrawer.close();
                     }
                 }
