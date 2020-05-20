@@ -22,6 +22,7 @@ public:
     virtual QHash<int, QByteArray> roleNames() const override;
 
 public slots:
+    void append(Product * product);
     bool clear();
 
 private:

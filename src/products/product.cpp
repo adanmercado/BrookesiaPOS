@@ -121,54 +121,67 @@ void Product::setMinStock(const double &minStock)
     }
 }
 
-int Product::categoryId() const
+int Product::category() const
 {
     return m_categoryId;
 }
 
-void Product::setCategoryId(const int &categoryId)
+void Product::setCategory(const int &categoryId)
 {
     if(m_categoryId != categoryId) {
         m_categoryId = categoryId;
-        emit categoryIdChanged();
+        emit categoryChanged();
     }
 }
 
-int Product::providerId() const
+int Product::provider() const
 {
     return m_providerId;
 }
 
-void Product::setProviderId(const int &providerId)
+void Product::setProvider(const int &providerId)
 {
     if(m_providerId != providerId) {
         m_providerId = providerId;
-        emit providerIdChanged();
+        emit providerChanged();
     }
 }
 
-int Product::taxId() const
+int Product::tax() const
 {
     return m_taxId;
 }
 
-void Product::setTaxId(const int &taxId)
+void Product::setTax(const int &taxId)
 {
     if(m_taxId != taxId) {
         m_taxId = taxId;
-        emit taxIdChanged();
+        emit taxChanged();
     }
 }
 
-int Product::measureId() const
+int Product::measure() const
 {
     return m_measureId;
 }
 
-void Product::setMeasureId(const int &measureId)
+void Product::setMeasure(const int &measureId)
 {
     if(m_measureId != measureId) {
         m_measureId = measureId;
-        emit measureIdChanged();
+        emit measureChanged();
+    }
+}
+
+QString Product::picture() const
+{
+    return m_picture;
+}
+
+void Product::setPicture(const QString &picture)
+{
+    if(m_picture != picture) {
+        m_picture = picture;
+        emit pictureChanged();
     }
 }

@@ -16,10 +16,11 @@ class Product : public QObject
     Q_PROPERTY(double cashProfit READ cashProfit WRITE setCashProfit NOTIFY cashProfitChanged)
     Q_PROPERTY(double stock READ stock WRITE setStock NOTIFY stockChanged)
     Q_PROPERTY(double minStock READ minStock WRITE setMinStock NOTIFY minStockChanged)
-    Q_PROPERTY(int categoryId READ categoryId WRITE setCategoryId NOTIFY categoryIdChanged)
-    Q_PROPERTY(int providerId READ providerId WRITE setProviderId NOTIFY providerIdChanged)
-    Q_PROPERTY(int taxId READ taxId WRITE setTaxId NOTIFY taxIdChanged)
-    Q_PROPERTY(int measureId READ measureId WRITE setMeasureId NOTIFY measureIdChanged)
+    Q_PROPERTY(int category READ category WRITE setCategory NOTIFY categoryChanged)
+    Q_PROPERTY(int provider READ provider WRITE setProvider NOTIFY providerChanged)
+    Q_PROPERTY(int tax READ tax WRITE setTax NOTIFY taxChanged)
+    Q_PROPERTY(int measure READ measure WRITE setMeasure NOTIFY measureChanged)
+    Q_PROPERTY(QString picture READ picture WRITE setPicture NOTIFY pictureChanged)
 
 public:
     explicit Product(QObject *parent = nullptr);
@@ -52,17 +53,20 @@ public:
     double minStock() const;
     void setMinStock(const double &minStock);
 
-    int categoryId() const;
-    void setCategoryId(const int &categoryId);
+    int category() const;
+    void setCategory(const int &categoryId);
 
-    int providerId() const;
-    void setProviderId(const int &providerId);
+    int provider() const;
+    void setProvider(const int &providerId);
 
-    int taxId() const;
-    void setTaxId(const int &taxId);
+    int tax() const;
+    void setTax(const int &taxId);
 
-    int measureId() const;
-    void setMeasureId(const int &measureId);
+    int measure() const;
+    void setMeasure(const int &measureId);
+
+    QString picture() const;
+    void setPicture(const QString &picture);
 
 signals:
     void productIdChanged();
@@ -74,10 +78,11 @@ signals:
     void cashProfitChanged();
     void stockChanged();
     void minStockChanged();
-    void categoryIdChanged();
-    void providerIdChanged();
-    void taxIdChanged();
-    void measureIdChanged();
+    void categoryChanged();
+    void providerChanged();
+    void taxChanged();
+    void measureChanged();
+    void pictureChanged();
 
 private:
     int m_id;
@@ -93,6 +98,7 @@ private:
     int m_providerId;
     int m_taxId;
     int m_measureId;
+    QString m_picture;
 };
 
 #endif // PRODUCT_H
