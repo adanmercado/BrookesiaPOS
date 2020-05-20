@@ -6,12 +6,6 @@ Item {
     id: productsRect
     property bool editable: false
 
-    Component.onCompleted: {
-        //Temp test
-        var product = Qt.createQmlObject("import brookesiapos.structs 1.0; Product {productId: 1; barcode: \"1234\"; description: \"QML Test product\"; picture: \"qrc:/img/picture.jpg\"}", parent);
-        productsModel.append(product);
-    }
-
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 4

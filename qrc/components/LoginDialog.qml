@@ -17,6 +17,17 @@ Dialog {
     contentItem: ColumnLayout {
         id: loginColumn
 
+        Keys.onPressed: {
+            switch(event.key) {
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    login();
+                    break;
+                case Qt.Key_Escape:
+                    close();
+            }
+        }
+
         TextField {
             id: usernameTextField
             placeholderText: qsTr("Enter a username")
@@ -58,9 +69,7 @@ Dialog {
                 text: qsTr("Cancel")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: {
-                    close();
-                }
+                onClicked: close();
             }
 
             Button {
@@ -69,24 +78,7 @@ Dialog {
                 text: qsTr("Accept")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: {
-                    var username = usernameTextField.text.trim();
-                    var password = passwordTextField.text.trim();
-
-                    if(!username) {
-                        showError(qsTr("Enter a valid username"));
-                        return;
-                    }
-
-                    if(!password) {
-                        showError(qsTr("Enter a valid password"));
-                        return;
-                    }
-
-                    //Fixme: login validations
-                    brookesiaPOS.userLogged = true;
-                    close();
-                }
+                onClicked: login();
             }
         }
     }
@@ -100,13 +92,35 @@ Dialog {
     }
 
     function showError(message) {
+        var lastMessage = errorLabel.text;
         rectError.visible = true;
         errorLabel.text = message;
-        messageTimer.start();
+
+        if(lastMessage) messageTimer.restart();
+        else messageTimer.start();
     }
 
     function hideMessage() {
         rectError.visible = false;
         errorLabel.text = "";
+    }
+
+    function login() {
+        var username = usernameTextField.text.trim();
+        var password = passwordTextField.text.trim();
+
+        if(!username) {
+            showError(qsTr("Enter a valid username"));
+            return;
+        }
+
+        if(!password) {
+            showError(qsTr("Enter a valid password"));
+            return;
+        }
+
+        //Fixme: login validations
+        brookesiaPOS.userLogged = true;
+        close();
     }
 }

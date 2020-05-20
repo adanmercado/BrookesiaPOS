@@ -19,6 +19,17 @@ Dialog {
         id: productItemColumn
         spacing: 0
 
+        Keys.onPressed: {
+            switch(event.key) {
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    acceptProduct();
+                    break;
+                case Qt.Key_Escape:
+                    close();
+            }
+        }
+
         GridLayout {
             columns: 2
             columnSpacing: 2
@@ -59,59 +70,72 @@ Dialog {
                     text: qsTr("Purchase price:")
                 }
 
-                DecimalSpinBox {
-                    id: purchasePriceSpinBox
+                TextField {
+                    id: purchasePriceTextField
                     Layout.fillWidth: true
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
 
                 Label {
                     text: qsTr("Sale price:")
                 }
 
-                DecimalSpinBox {
-                    id: salePriceSpinBox
+                TextField {
+                    id: salePriceTextField
                     Layout.fillWidth: true
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
 
                 Label {
                     text: qsTr("Profit percent:")
                 }
 
-                DecimalSpinBox {
-                    id: profiSpinBox
+                TextField {
+                    id: profitTextField
                     Layout.fillWidth: true
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
 
                 Label {
                     text: qsTr("Cash profit:")
                 }
 
-                DecimalSpinBox {
-                    id: cashProfitSpinBox
+                TextField {
+                    id: cashProfitTextField
                     Layout.fillWidth: true
-                    enabled: false
+                    //enabled: false
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
 
                 Label {
                     text: qsTr("Current stock:")
                 }
 
-                DecimalSpinBox {
-                    id: stockSpinBox
+                TextField {
+                    id: stockTextField
                     Layout.fillWidth: true
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
 
                 Label {
                     text: qsTr("Minimum stock:")
                 }
 
-                DecimalSpinBox {
-                    id: minStockSpinBox
+                TextField {
+                    id: minStockTextField
                     Layout.fillWidth: true
+                    validator: DoubleValidator {bottom: 0; top: 10000}
+                    text: "0.00"
                 }
             }
 
             ImagePicker {
+                id: imgPicker
             }
         }
 
@@ -126,6 +150,7 @@ Dialog {
 
             ComboBox {
                 id: categoriesComboBox
+                model: ["General"]
                 Layout.fillWidth: true
             }
 
@@ -135,6 +160,7 @@ Dialog {
 
             ComboBox {
                 id: providersComboBox
+                model: ["General"]
                 Layout.fillWidth: true
             }
 
@@ -144,6 +170,7 @@ Dialog {
 
             ComboBox {
                 id: taxesComboBox
+                model: ["None"]
                 Layout.fillWidth: true
             }
 
@@ -153,6 +180,7 @@ Dialog {
 
             ComboBox {
                 id: measuresComboBox
+                model: ["Piece"]
                 Layout.fillWidth: true
             }
         }
@@ -184,9 +212,7 @@ Dialog {
                 text: qsTr("Cancel")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: {
-                    close();
-                }
+                onClicked: close();
             }
 
             Button {
@@ -195,8 +221,7 @@ Dialog {
                 text: qsTr("Accept")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: {
-                }
+                onClicked: acceptProduct();
             }
         }
     }
@@ -218,5 +243,49 @@ Dialog {
     function hideMessage() {
         rectError.visible = false;
         errorLabel.text = "";
+    }
+
+    function acceptProduct() {
+        var barcode = barcodeTextField.text.trim();
+        var description = descriptionTextArea.text.trim();
+
+        if(!barcode || !description) {
+            showError(qsTr("Check that there are no empty fields"))
+            return;
+        }
+
+        //Fix
+        var purchasePrice = parseFloat(purchasePriceTextField.text.trim());
+        var salePrice = parseFloat(salePriceTextField.text.trim());
+        var profitPercent = parseFloat(profitTextField.text.trim());
+        var cashProfit = parseFloat(profitTextField.text.trim());
+        var stock = parseFloat(stockTextField.text.trim());
+        var minStock = parseFloat(minStockTextField.text.trim());
+        var category = parseInt(categoriesComboBox.currentIndex);
+        var provider = parseInt(providersComboBox.currentIndex);
+        var tax = parseInt(taxesComboBox.currentIndex);
+        var measure = parseInt(measuresComboBox.currentIndex);
+        var picture = imgPicker.image;
+        //Temp
+        if(picture == "") picture = "qrc:/img/picture.jpg";
+
+        var str = "import brookesiapos.structs 1.0; " +
+                "Product {" +
+                "productId: 1; " +
+                "barcode: \""+ barcode + "\"; " +
+                "description: \"" + description + "\"; " +
+                "purchasePrice: " + purchasePrice + ";"  +
+                "salePrice: " + salePrice + "; " +
+                "profitPercent: " + profitPercent + "; " +
+                "cashProfit: " + cashProfit + "; " +
+                "stock: " + stock + "; " +
+                "minStock: " + minStock + "; " +
+                "category: " + category + "; " +
+                "provider: " + provider + "; " +
+                "tax: " + tax + "; " +
+                "measure: " + measure + "; " +
+                "picture: \"" + picture + "\"}";
+        var product = Qt.createQmlObject(str, parent);
+        productsModel.append(product);
     }
 }
