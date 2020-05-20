@@ -4,6 +4,7 @@
 
 #include "ticket/ticketmodel.h"
 #include "ticket/ticketitemlist.h"
+#include "products/productmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,8 +20,12 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("mercadersoftware.com.mx");
 
     qmlRegisterType<TicketModel>("brookesiapos.models", 1, 0, "TicketModel");
-    qmlRegisterUncreatableType<TicketItemList>("brookesiapos.models", 1, 0, "TicketItemList", QStringLiteral("TicketItemList should not be created in QML"));
+    qmlRegisterType<TicketModel>("brookesiapos.data", 1, 0, "Product");
+    qmlRegisterUncreatableType<TicketItemList>("brookesiapos.models", 1, 0, "TicketItemList", QStringLiteral("TicketItemList cannot be created in QML"));
+    qmlRegisterUncreatableType<TicketItemList>("brookesiapos.models", 1, 0, "ProductModel", QStringLiteral("ProductModel cannot be created in QML"));
     TicketItemList ticketItemList;
+
+    ProductModel model;
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("ticketItemList", &ticketItemList);
