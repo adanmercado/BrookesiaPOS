@@ -13,11 +13,14 @@ Dialog {
     topPadding: 6
     title: qsTr("New product")
 
+    onRejected: clearFields();
+
     property bool isEditing: false
 
     contentItem: ColumnLayout {
         id: productItemColumn
         spacing: 0
+
 
         Keys.onPressed: {
             switch(event.key) {
@@ -25,8 +28,6 @@ Dialog {
                 case Qt.Key_Return:
                     acceptProduct();
                     break;
-                case Qt.Key_Escape:
-                    close();
             }
         }
 
@@ -51,7 +52,7 @@ Dialog {
             }
 
             TextField {
-                id: descriptionTextArea
+                id: descriptionTextField
                 placeholderText: qsTr("Enter a product description")
                 Layout.fillWidth: true
             }
@@ -212,7 +213,10 @@ Dialog {
                 text: qsTr("Cancel")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: close();
+                onClicked: {
+                    clearFields();
+                    close();
+                }
             }
 
             Button {
@@ -245,9 +249,26 @@ Dialog {
         errorLabel.text = "";
     }
 
+    function clearFields() {
+        barcodeTextField.clear();
+        descriptionTextField.clear();
+        purchasePriceTextField.text = "0.00";
+        salePriceTextField.text = "0.00";
+        profitTextField.text = "0.00";
+        cashProfitTextField.text = "0.00";
+        stockTextField.text = "0.00";
+        minStockTextField.text = "0.00";
+        categoriesComboBox.currentIndex = 0;
+        providersComboBox.currentIndex = 0;
+        taxesComboBox.currentIndex = 0;
+        measuresComboBox.currentIndex = 0;
+        imgPicker.image = "";
+        barcodeTextField.focus = true;
+    }
+
     function acceptProduct() {
         var barcode = barcodeTextField.text.trim();
-        var description = descriptionTextArea.text.trim();
+        var description = descriptionTextField.text.trim();
 
         if(!barcode || !description) {
             showError(qsTr("Check that there are no empty fields"))
@@ -287,5 +308,6 @@ Dialog {
                 "picture: \"" + picture + "\"}";
         var product = Qt.createQmlObject(str, parent);
         productsModel.append(product);
+        clearFields();
     }
 }

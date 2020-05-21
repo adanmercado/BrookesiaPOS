@@ -14,6 +14,8 @@ Dialog {
     topPadding: 6
     title: qsTr("Login")
 
+    onRejected: clearFields();
+
     contentItem: ColumnLayout {
         id: loginColumn
 
@@ -23,8 +25,6 @@ Dialog {
                 case Qt.Key_Return:
                     login();
                     break;
-                case Qt.Key_Escape:
-                    close();
             }
         }
 
@@ -69,7 +69,10 @@ Dialog {
                 text: qsTr("Cancel")
                 highlighted: true
                 Material.elevation: 6
-                onClicked: close();
+                onClicked: {
+                    clearFields();
+                    close();
+                }
             }
 
             Button {
@@ -103,6 +106,12 @@ Dialog {
     function hideMessage() {
         rectError.visible = false;
         errorLabel.text = "";
+    }
+
+    function clearFields() {
+        usernameTextField.clear();
+        passwordTextField.clear();
+        usernameTextField.focus = true;
     }
 
     function login() {
