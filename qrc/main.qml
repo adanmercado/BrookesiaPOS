@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.14
 import QtQuick.Layouts 1.12
 
 import "components"
+import "pages"
 
 ApplicationWindow {
     id: brookesiaPOS
@@ -64,7 +65,8 @@ ApplicationWindow {
                             pane.showFullPane = hovered;
                         }
                         onClicked: {
-                            appLoader.source = model.source;
+                            //appLoader.source = model.source;
+                            stack.currentIndex = index;
                             pane.showFullPane = false;
                         }
                     }
@@ -72,12 +74,27 @@ ApplicationWindow {
             }
         }
 
-        Loader {
+        StackLayout {
+            id: stack
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.margins: 4
+            currentIndex: 0
+
+            SalesPage { }
+            ProductsPage { }
+            ClientsPage { }
+            ProvidersPage { }
+            DrawerPage { }
+            SettingsPage { }
+        }
+
+        /*Loader {
             id: appLoader
             source: "qrc:/pages/SalesPage.qml"
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.margins: 4
-        }
+        }*/
     }
 }
