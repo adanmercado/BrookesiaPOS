@@ -2,106 +2,82 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 
+import QtQuick.Layouts 1.12
+
 import "components"
 
 ApplicationWindow {
     id: brookesiaPOS
     visible: true
-    minimumWidth: 1000
+    minimumWidth: 1100
     minimumHeight: 650
     visibility: "Maximized"
     title: Qt.application.name
 
     property bool userLogged: false
 
-    header: ToolBar {
-        contentHeight: menuButton.implicitHeight
-
-        ToolButton {
-            id: menuButton
-            icon.source: "qrc:/icons/bars.svg"
-            onClicked: {
-                menuDrawer.open();
-            }
-        }
-
-        Label {
-            text: brookesiaPOS.title
-            anchors.centerIn: parent
-            font.pixelSize: 20
-        }
-
-        ToolButton {
-            id: minimizeButton
-            anchors.right: sessionButton.left
-            icon.source: "qrc:/icons/window-minimize.svg"
-            onClicked: {
-            }
-        }
-
-        ToolButton {
-            id: sessionButton
-            anchors.right: parent.right
-            icon.source: brookesiaPOS.userLogged ? "qrc:/icons/sign-out.svg" : "qrc:/icons/sign-in.svg"
-            text: brookesiaPOS.userLogged ? qsTr("Exit") : qsTr("Start operations")
-            onClicked: {
-                if(brookesiaPOS.userLogged) {
-                } else {
-                    loginDialog.open();
-                }
-            }
-        }
-    }
-
-    Drawer {
-        id: menuDrawer
-        width: brookesiaPOS.width * 0.24
-        height: brookesiaPOS.height
-        enabled: brookesiaPOS.userLogged
-
-        Column {
-            anchors.fill: parent
-
-            Repeater {
-                id: menuRepeater
-                model: ListModel {
-                    ListElement {text: qsTr("Sales"); icon: "qrc:/icons/shopping-cart.svg"; source: "qrc:/pages/SalesPage.qml"}
-                    ListElement {text: qsTr("Products"); icon: "qrc:/icons/products.svg"; source: "qrc:/pages/ProductsPage.qml"}
-                    ListElement {text: qsTr("Clients"); icon: "qrc:/icons/users.svg"; source: "qrc:/pages/ClientsPage.qml"}
-                    ListElement {text: qsTr("Providers"); icon: "qrc:/icons/providers.svg"; source: "qrc:/pages/ProvidersPage.qml"}
-                    ListElement {text: qsTr("Drawer"); icon: "qrc:/icons/chart.svg"; source: "qrc:/pages/DrawerPage.qml"}
-                    ListElement {text: qsTr("Settings"); icon: "qrc:/icons/settings.svg"; source: "qrc:/pages/SettingsPage.qml"}
-                }
-
-                delegate: ItemDelegate {
-                    width: parent.width
-                    height: 100
-                    text: model.text
-                    font.pixelSize: 18
-                    font.bold: true
-                    icon.source: model.icon
-                    icon.width: 42
-                    icon.height: 42
-                    Material.foreground: Material.accentColor
-                    display: AbstractButton.TextUnderIcon
-
-                    onClicked: {
-                        appLoader.source = model.source;
-                        menuDrawer.close();
-                    }
-                }
-            }
-        }
+    ListModel {
+        id: menuModel
+        ListElement {text: qsTr("Sales"); icon: "qrc:/icons/shopping-cart.svg"; source: "qrc:/pages/SalesPage.qml"}
+        ListElement {text: qsTr("Products"); icon: "qrc:/icons/products.svg"; source: "qrc:/pages/ProductsPage.qml"}
+        ListElement {text: qsTr("Clients"); icon: "qrc:/icons/users.svg"; source: "qrc:/pages/ClientsPage.qml"}
+        ListElement {text: qsTr("Providers"); icon: "qrc:/icons/providers.svg"; source: "qrc:/pages/ProvidersPage.qml"}
+        ListElement {text: qsTr("Drawer"); icon: "qrc:/icons/chart.svg"; source: "qrc:/pages/DrawerPage.qml"}
+        ListElement {text: qsTr("Settings"); icon: "qrc:/icons/settings.svg"; source: "qrc:/pages/SettingsPage.qml"}
     }
 
     LoginDialog {
         id: loginDialog
     }
 
-    Loader {
-        id: appLoader
-        source: "qrc:/pages/SalesPage.qml"
+    RowLayout {
         anchors.fill: parent
-        anchors.margins: 4
+        spacing: 0
+
+        Rectangle {
+            id: pane
+            width: showFullPane ? 200 : 60
+            Layout.fillHeight: true
+            color: Material.color(Material.LightBlue)
+            z: 1
+
+            property bool showFullPane: false
+
+            Column {
+                anchors.fill: parent
+                spacing: 0
+
+                Repeater {
+                    id: menuIcons
+                    model: menuModel
+
+                    delegate: ItemDelegate {
+                        width: pane.width
+                        height: 60
+                        icon.source: model.icon
+                        icon.color: "white"
+                        text: model.text
+                        display: pane.showFullPane ? "TextBesideIcon" : "IconOnly"
+                        Material.foreground: "white"
+
+                        onHoveredChanged: {
+                            pane.showFullPane = hovered;
+                        }
+                        onClicked: {
+                            appLoader.source = model.source;
+                            pane.showFullPane = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        Loader {
+            id: appLoader
+            source: "qrc:/pages/SalesPage.qml"
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.margins: 4
+        }
     }
 }
